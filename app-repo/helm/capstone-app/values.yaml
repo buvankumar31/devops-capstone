@@ -1,0 +1,38 @@
+namespace: default
+
+frontend:
+  name: frontend
+  replicaCount: 1
+  image:
+    repository: devops-capstone/frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+  containerPort: 80
+  service:
+    type: ClusterIP
+    port: 80
+  env:
+    appEnv: DEV
+    apiBaseUrl: ""
+
+backend:
+  name: backend
+  replicaCount: 1
+  image:
+    repository: devops-capstone/backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  containerPort: 3000
+  service:
+    type: ClusterIP
+    port: 3000
+  env:
+    appName: devops-capstone-backend
+    appEnv: dev
+    appVersion: "1.0.0"
+
+ingress:
+  enabled: true
+  className: alb
+  host: ""
+  annotations: {}

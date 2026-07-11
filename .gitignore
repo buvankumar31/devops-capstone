@@ -1,0 +1,30 @@
+# Node
+**/node_modules/
+**/dist/
+**/build/
+
+# Terraform
+**/.terraform/
+**/.terraform.lock.hcl
+**/*.tfstate
+**/*.tfstate.*
+terraform.tfvars
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# Coverage
+coverage/

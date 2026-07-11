@@ -1,0 +1,28 @@
+.card{
+background:#091526;
+padding:25px;
+margin-top:25px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.pipeline{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:30px;
+flex-wrap:wrap;
+gap:15px;
+}
+
+.pipeline div{
+background:#12243d;
+padding:14px 20px;
+border-radius:12px;
+font-weight:600;
+}
+
+.pipeline span{
+font-size:24px;
+color:#3b82f6;
+}

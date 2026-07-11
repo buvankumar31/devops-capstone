@@ -1,0 +1,54 @@
+.card{
+background:#091526;
+padding:25px;
+border-radius:20px;
+margin-top:25px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.header{
+margin-bottom:20px;
+}
+
+.row{
+display:grid;
+grid-template-columns:3fr 1fr 1fr auto;
+align-items:center;
+padding:18px 0;
+border-top:1px solid rgba(255,255,255,.05);
+}
+
+.left h3{
+font-size:16px;
+margin-bottom:5px;
+}
+
+.left p{
+font-size:13px;
+color:#9eb0ca;
+}
+
+.badge{
+padding:6px 12px;
+border-radius:20px;
+text-align:center;
+font-size:13px;
+}
+
+.Completed{
+background:#124b2c;
+}
+
+.InProgress{
+background:#274690;
+}
+
+.Pending{
+background:#6b4d17;
+}
+
+.icons{
+display:flex;
+gap:15px;
+cursor:pointer;
+}

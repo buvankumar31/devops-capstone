@@ -1,0 +1,22 @@
+namespace: qa
+
+frontend:
+  replicaCount: 1
+  image:
+    tag: qa-latest
+  env:
+    appEnv: QA
+    apiBaseUrl: ""
+
+backend:
+  replicaCount: 1
+  image:
+    tag: qa-latest
+  env:
+    appEnv: qa
+    appVersion: "1.0.0-qa"
+
+ingress:
+  enabled: true
+  className: alb
+  host: qa.devops-capstone.local

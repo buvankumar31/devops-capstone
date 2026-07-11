@@ -1,0 +1,19 @@
+---
+- name: Bootstrap Jenkins Server
+  hosts: jenkins
+  become: true
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - git
+          - curl
+          - unzip
+        state: present
+

@@ -1,0 +1,22 @@
+namespace: prod
+
+frontend:
+  replicaCount: 2
+  image:
+    tag: prod-latest
+  env:
+    appEnv: PROD
+    apiBaseUrl: ""
+
+backend:
+  replicaCount: 2
+  image:
+    tag: prod-latest
+  env:
+    appEnv: prod
+    appVersion: "1.0.0-prod"
+
+ingress:
+  enabled: true
+  className: alb
+  host: prod.devops-capstone.local

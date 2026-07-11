@@ -1,0 +1,22 @@
+namespace: dev
+
+frontend:
+  replicaCount: 1
+  image:
+    tag: dev-latest
+  env:
+    appEnv: DEV
+    apiBaseUrl: ""
+
+backend:
+  replicaCount: 1
+  image:
+    tag: dev-latest
+  env:
+    appEnv: dev
+    appVersion: "1.0.0-dev"
+
+ingress:
+  enabled: true
+  className: alb
+  host: dev.devops-capstone.local
