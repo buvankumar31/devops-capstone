@@ -57,6 +57,7 @@ module "eks" {
   cluster_subnet_ids  = concat(module.vpc.public_subnet_ids, module.vpc.private_subnet_ids)
   node_subnet_ids     = module.vpc.private_subnet_ids
   cluster_role_arn    = module.iam.eks_cluster_role_arn
+  jenkins_role_arn = module.iam.jenkins_role_arn
   node_group_role_arn = module.iam.eks_node_group_role_arn
   node_instance_type  = var.node_instance_type
   desired_size        = var.desired_size
@@ -64,3 +65,18 @@ module "eks" {
   max_size            = var.max_size
 }
 
+# --------------------------------------------------
+# Allow Jenkins to access EKS API
+# --------------------------------------------------
+
+resource "aws_security_group_rule" "jenkins_to_eks_api" {
+  type      = "ingress"
+  from_port = 443
+  to_port   = 443
+  protocol  = "tcp"
+
+  security_group_id        = module.eks.cluster_security_group_id
+  source_security_group_id = module.security_groups.jenkins_sg_id
+
+  description = "Allow Jenkins EC2 to access EKS API"
+}

@@ -120,3 +120,25 @@ resource "aws_iam_role_policy_attachment" "jenkins_eks_access" {
   role       = aws_iam_role.jenkins_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
+resource "aws_iam_role_policy" "jenkins_eks_permissions" {
+  name = "${var.project_name}-${var.environment}-jenkins-eks-permissions"
+  role = aws_iam_role.jenkins_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Sid    = "EKSAccess"
+        Effect = "Allow"
+
+        Action = [
+          "eks:DescribeCluster",
+          "eks:ListClusters"
+        ]
+
+        Resource = "arn:aws:eks:us-east-1:975800361242:cluster/devops-capstone-nonprod-eks"
+      }
+    ]
+  })
+}

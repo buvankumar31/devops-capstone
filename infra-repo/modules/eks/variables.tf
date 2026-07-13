@@ -56,3 +56,7 @@ variable "max_size" {
   description = "Maximum number of worker nodes"
   type        = number
 }
+variable "jenkins_role_arn" {
+  description = "IAM Role ARN used by Jenkins"
+  type        = string
+}
