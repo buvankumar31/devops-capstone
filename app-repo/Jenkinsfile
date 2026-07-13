@@ -65,3 +65,19 @@ pipeline {
 
     }
 }
+
+stage('Push Frontend Image') {
+    steps {
+        sh '''
+        docker push $FRONTEND_REPO:$IMAGE_TAG
+        '''
+    }
+}
+
+stage('Push Backend Image') {
+    steps {
+        sh '''
+        docker push $BACKEND_REPO:$IMAGE_TAG
+        '''
+    }
+}
