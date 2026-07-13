@@ -80,7 +80,9 @@ stage('Push Backend Image') {
         docker push $BACKEND_REPO:$IMAGE_TAG
         '''
       }
-   }
-} 
+    }
+  
+   } 
+
 }
   
