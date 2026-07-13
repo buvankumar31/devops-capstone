@@ -19,12 +19,12 @@ pipeline {
         stage('Generate Image Tag') {
             steps {
                 script {
-                    IMAGE_TAG = sh(
+                    env.IMAGE_TAG = sh(
                         script: "git rev-parse --short HEAD",
                         returnStdout: true
                     ).trim()
 
-                    echo "Image Tag: ${IMAGE_TAG}"
+                    echo "Image Tag: ${env.IMAGE_TAG}"
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 sh '''
                 docker build \
-                -t ${FRONTEND_REPO}:${IMAGE_TAG} \
+                -t ${FRONTEND_REPO}:${env.IMAGE_TAG} \
                 -f app-repo/frontend/Dockerfile \
                 app-repo/frontend
                 '''
@@ -56,7 +56,7 @@ pipeline {
             steps {
                 sh '''
                 docker build \
-                -t ${BACKEND_REPO}:${IMAGE_TAG} \
+                -t ${BACKEND_REPO}:${env.IMAGE_TAG} \
                 -f app-repo/backend/Dockerfile \
                 app-repo/backend
                 '''
