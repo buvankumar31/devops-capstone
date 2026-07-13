@@ -63,8 +63,8 @@ pipeline {
             }
         }
 
-    }
-}
+    
+
 
 stage('Push Frontend Image') {
     steps {
@@ -79,5 +79,8 @@ stage('Push Backend Image') {
         sh '''
         docker push $BACKEND_REPO:$IMAGE_TAG
         '''
-    }
+      }
+   }
+} 
 }
+  
