@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = "us-east-1"
+
+        FRONTEND_REPO = "975800361242.dkr.ecr.us-east-1.amazonaws.com/devops-capstone/frontend"
+        BACKEND_REPO  = "975800361242.dkr.ecr.us-east-1.amazonaws.com/devops-capstone/backend"
+    }
+
+    stages {
+
+        stage('Checkout Source') {
+            steps {
+                checkout scm
+            }
+        }
+
+    }
+}
+stage('Generate Image Tag') {
+    steps {
+        script {
+            IMAGE_TAG = sh(
+                script: "git rev-parse --short HEAD",
+                returnStdout: true
+            ).trim()
+
+            echo "Image Tag: ${IMAGE_TAG}"
+        }
+    }
+}
+stage('Login to Amazon ECR') {
+    steps {
+        sh '''
+        aws ecr get-login-password --region ${AWS_REGION} | \
+        docker login \
+        --username AWS \
+        --password-stdin \
+        975800361242.dkr.ecr.us-east-1.amazonaws.com
+        '''
+    }
+}
+stage('Build Frontend Image') {
+    steps {
+        sh '''
+        docker build \
+        -t ${FRONTEND_REPO}:${IMAGE_TAG} \
+        -f app-repo/frontend/Dockerfile \
+        app-repo/frontend
+        '''
+    }
+}
+
+stage('Build Backend Image') {
+    steps {
+        sh '''
+        docker build \
+        -t ${BACKEND_REPO}:${IMAGE_TAG} \
+        -f app-repo/backend/Dockerfile \
+        app-repo/backend
+        '''
+    }
+}
