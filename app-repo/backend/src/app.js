@@ -9,22 +9,17 @@ const APP_VERSION = process.env.APP_VERSION || "1.0.0";
 
 app.use(express.json());
 
-app.get("/health", (req, res) => {
-  res.status(200).json({
+const healthHandler = (req, res) => {
+  res.json({
     status: "ok",
     app: APP_NAME,
-    environment: APP_ENV
-  });
-});
-
-app.get("/api/message", (req, res) => {
-  res.status(200).json({
-    message: `Hello from ${APP_NAME}`,
     environment: APP_ENV,
     version: APP_VERSION,
-    timestamp: new Date().toISOString()
   });
-});
+};
+
+app.get("/health", healthHandler);
+app.get("/api/health", healthHandler);
 
 app.listen(PORT, () => {
   console.log(`${APP_NAME} is running on port ${PORT} in ${APP_ENV} environment`);
