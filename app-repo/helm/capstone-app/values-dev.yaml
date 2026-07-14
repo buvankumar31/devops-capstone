@@ -19,4 +19,4 @@ backend:
 ingress:
   enabled: true
   className: alb
-  host: dev.devops-capstone.local
+  host: ""

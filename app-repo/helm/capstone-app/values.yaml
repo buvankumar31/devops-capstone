@@ -3,8 +3,8 @@ namespace: default
 frontend:
   name: frontend
   replicaCount: 1
-  image:
-    repository: devops-capstone/frontend
+  image: 
+    repository: 975800361242.dkr.ecr.us-east-1.amazonaws.com/devops-capstone/frontend     
     tag: latest
     pullPolicy: IfNotPresent
   containerPort: 80
@@ -19,7 +19,7 @@ backend:
   name: backend
   replicaCount: 1
   image:
-    repository: devops-capstone/backend
+    repository: 975800361242.dkr.ecr.us-east-1.amazonaws.com/devops-capstone/backend
     tag: latest
     pullPolicy: IfNotPresent
   containerPort: 3000
