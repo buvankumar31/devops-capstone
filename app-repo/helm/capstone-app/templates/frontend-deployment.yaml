@@ -6,6 +6,8 @@ metadata:
   labels:
     app: {{ .Values.frontend.name }}
 spec:
+  strategy:
+    type: Recreate
   replicas: {{ .Values.frontend.replicaCount }}
   selector:
     matchLabels:
