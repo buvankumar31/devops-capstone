@@ -82,6 +82,62 @@ stage('Push Backend Image') {
       }
     }
   
+stage('Deploy to Kubernetes') {
+    steps {
+        sh """
+        helm upgrade --install capstone-app \
+        app-repo/helm/capstone-app \
+        -n dev \
+        -f app-repo/helm/capstone-app/values-dev.yaml \
+        --set frontend.image.repository=${FRONTEND_REPO} \
+        --set backend.image.repository=${BACKEND_REPO} \
+        --set frontend.image.tag=${IMAGE_TAG} \
+        --set backend.image.tag=${IMAGE_TAG}
+        """
+    }
+}
+stage('Wait for Rollout') {
+    steps {
+        sh '''
+        kubectl rollout status deployment/frontend -n dev --timeout=5m
+        kubectl rollout status deployment/backend -n dev --timeout=5m
+        '''
+    }
+}
+
+stage('Verify Pods') {
+    steps {
+        sh '''
+        kubectl get pods -n dev -o wide
+        '''
+    }
+}
+
+stage('Verify Ingress') {
+    steps {
+        sh '''
+        kubectl get ingress -n dev
+        '''
+    }
+}
+
+stage('Smoke Test') {
+    steps {
+        sh '''
+        ALB=$(kubectl get ingress capstone-app-ingress -n dev -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
+        curl -f http://$ALB
+
+        curl -f http://$ALB/health
+
+        curl -f http://$ALB/api/health
+        '''
+    }
+}
+
+
+
+
    } 
 
 }
