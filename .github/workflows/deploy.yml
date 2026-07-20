@@ -48,8 +48,10 @@ jobs:
       - name: Build Backend Image
         run: |
           docker build \
-            -f app-repo/backend/Dockerfile \
-            app-repo/backend
+          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$BACKEND_REPO:$IMAGE_TAG \
+          -f app-repo/backend/Dockerfile \
+          app-repo/backend
+
 
 
       - name: Push Frontend Image
