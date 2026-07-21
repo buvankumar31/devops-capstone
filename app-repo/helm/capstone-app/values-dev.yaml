@@ -3,7 +3,7 @@ namespace: dev
 frontend:
   replicaCount: 1
   image:
-    tag: 46b06c8
+    tag: 2ae1ed9
   env:
     appEnv: DEV
     apiBaseUrl: ""
@@ -11,7 +11,7 @@ frontend:
 backend:
   replicaCount: 1
   image:
-    tag: 46b06c8
+    tag: 2ae1ed9
   env:
     appEnv: dev
     appVersion: "1.0.0-dev"
